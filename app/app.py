@@ -1,5 +1,5 @@
 from typing import List, Dict
-import mysql.connector
+from mysql import connector
 import simplejson as json
 from flask import Flask, Response
 
@@ -14,7 +14,7 @@ def cities_import() -> List[Dict]:
         'port': '3306',
         'database': 'citiesData'
     }
-    connection = mysql.connector.connect(**config)
+    connection = connector.connect(**config)
     cursor = connection.cursor(dictionary=True)
 
     cursor.execute('SELECT * FROM tblCitiesImport')
@@ -34,4 +34,4 @@ def index() -> str:
 
 
 if __name__ == '__main__':
-    app.run(host='localhost')
+    app.run(host='0.0.0.0', port=5000)
